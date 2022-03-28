@@ -1,3 +1,0 @@
-/home/q/Documents/Shared-School/Winter2022/COMP2501/assignments/assignment4/bin/CMakeFiles/Assignment4.dir
-/home/q/Documents/Shared-School/Winter2022/COMP2501/assignments/assignment4/bin/CMakeFiles/edit_cache.dir
-/home/q/Documents/Shared-School/Winter2022/COMP2501/assignments/assignment4/bin/CMakeFiles/rebuild_cache.dir
