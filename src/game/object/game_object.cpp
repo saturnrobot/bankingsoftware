@@ -37,7 +37,7 @@ namespace game
         glm::mat4 scaling_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(scale_, scale_, 1));
         glm::mat4 translation_matrix = glm::translate(glm::mat4(1.0f), position_);
         glm::mat4 rotation_matrix = glm::rotate(glm::mat4(1.0f), glm::radians(rotation_), glm::vec3(0, 0, 1));
-        return scaling_matrix * translation_matrix * rotation_matrix;
+        return translation_matrix * rotation_matrix * scaling_matrix;
     }
 
     void GameObject::RenderWithMatrix(Shader &shader, glm::mat4 transformation_matrix)

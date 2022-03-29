@@ -118,9 +118,11 @@ namespace game
         // Note that, in this specific implementation, the player object should always be the first object in the game object vector
         EffectObject *effect = new EffectObject(glm::vec3(0.0f, 0.0f, 0.0f), tex_library_.GetTexture("explosion_basic"), size_, 0.8, sound_index, true);
         Bullet *bullet = new Bullet(glm::vec3(0.0f, 0.0f, 0.0f), tex_library_.GetTexture("bullet"), size_, new RayCollider("bullet"), new EffectObject(*effect), 20, 0.5);
+        bullet->SetScale(0.3f);
         player_ = new PlayerEntity(glm::vec3(0.0f, 0.0f, 0.0f), tex_library_.GetTexture("player"), size_, new CircleCollider("player"), new EffectObject(*effect), 0.1, 3, bullet, 0.4);
-        player_->AddChild(new FollowerObject(player_->GetPosition(), tex_library_.GetTexture("chopper_blade"), size_, glm::vec3(0.0f, 0.1f, -1.0)));
-        player_->AddChild(new Shield(player_->GetPosition(), tex_library_.GetTexture("player"), size_, player_, new Orbiter(player_->GetPosition(), tex_library_.GetTexture("orb"), size_, 2, 1.5, player_->GetPosition())));
+        player_->SetScale(0.8);
+        //player_->AddChild(new FollowerObject(player_->GetPosition(), tex_library_.GetTexture("chopper_blade"), size_, glm::vec3(0.0f, 0.1f, -1.0)));
+        player_->AddChild(new Shield(player_->GetPosition(), tex_library_.GetTexture("player"), size_, player_, new Orbiter(player_->GetPosition(), tex_library_.GetTexture("orb"), size_, 0.5, 1.5, player_->GetPosition())));
         game_objects_.push_back(player_);
         collidables_.push_back(player_);
 
@@ -141,7 +143,7 @@ namespace game
         {
             for (int x = -5; x < 5; ++x)
             {
-                GameObject *background = new GameObject(glm::vec3(x, y, 0.0f), tex_library_.GetTexture("background"), size_, false);
+                GameObject *background = new GameObject(glm::vec3(x*20, y*20, 0.0f), tex_library_.GetTexture("background"), size_, false);
                 background->SetScale(20.0);
                 game_objects_.push_back(background);
             }

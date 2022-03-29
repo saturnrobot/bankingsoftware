@@ -24,7 +24,7 @@ namespace engine
     void TextureLibrary::SetAllTextures()
     {
         glGenTextures(NUM_TEXTURES, tex_);
-        tex_library_["player"] = SetTexture(tex_[0], (resources_directory_g + std::string("/textures/chopper.png")).c_str());
+        tex_library_["player"] = SetTexture(tex_[0], (resources_directory_g + std::string("/textures/ship.png")).c_str());
         tex_library_["enemy_basic"] = SetTexture(tex_[1], (resources_directory_g + std::string("/textures/ship_red.png")).c_str());
         tex_library_["background"] = SetBackgroundTexture(tex_[2], (resources_directory_g + std::string("/textures/back.png")).c_str());
         tex_library_["explosion_basic"] = SetTexture(tex_[3], (resources_directory_g + std::string("/textures/explosion.png")).c_str());
