@@ -334,7 +334,7 @@ namespace game
         {
             player_->Stop();
         }
-        if (glfwGetKey(window_, GLFW_KEY_SPACE) == GLFW_PRESS)
+        if (glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
         {
             player_->Shoot(glm::vec3(player_->GetPosition().x, player_->GetPosition().y, -1.0f), player_->GetRotation());
         }
