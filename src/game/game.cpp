@@ -104,21 +104,21 @@ namespace game
 
         tex_library_.SetAllTextures();
 
-        std::string filename = std::string(AUDIO_DIRECTORY).append(std::string("/").append(std::string("jazz.wav")));
+        /*std::string filename = std::string(AUDIO_DIRECTORY).append(std::string("/").append(std::string("jazz.wav")));
         am_->AddSound(filename.c_str());
         am_->SetSoundPosition(0, -10.0, 0.0, 0.0);
         am_->SetLoop(0, true);
-        // am_->PlaySound(0);
+        // am_->PlaySound(0);*/
 
         int sound_index;
-        filename = std::string(AUDIO_DIRECTORY).append(std::string("/").append(std::string("you_lose.wav")));
+        std::string filename = std::string(AUDIO_DIRECTORY).append(std::string("/").append(std::string("you_lose.wav")));
         sound_index = am_->AddSound(filename.c_str());
 
         // Setup the player object (position, texture, vertex count)
         // Note that, in this specific implementation, the player object should always be the first object in the game object vector
-        EffectObject *effect = new EffectObject(glm::vec3(0.0f, 0.0f, 0.0f), tex_library_.GetTexture("explosion_basic"), size_, 0.8, sound_index);
+        EffectObject *effect = new EffectObject(glm::vec3(0.0f, 0.0f, 0.0f), tex_library_.GetTexture("explosion_basic"), size_, 0.8, sound_index, true);
         Bullet *bullet = new Bullet(glm::vec3(0.0f, 0.0f, 0.0f), tex_library_.GetTexture("bullet"), size_, new RayCollider("bullet"), new EffectObject(*effect), 20, 0.5);
-        player_ = new PlayerEntity(glm::vec3(0.0f, 0.0f, 0.0f), tex_library_.GetTexture("player"), size_, new CircleCollider("player"), effect, 0.1, 3, bullet, 0.4);
+        player_ = new PlayerEntity(glm::vec3(0.0f, 0.0f, 0.0f), tex_library_.GetTexture("player"), size_, new CircleCollider("player"), new EffectObject(*effect), 0.1, 3, bullet, 0.4);
         player_->AddChild(new FollowerObject(player_->GetPosition(), tex_library_.GetTexture("chopper_blade"), size_, glm::vec3(0.0f, 0.1f, -1.0)));
         player_->AddChild(new Shield(player_->GetPosition(), tex_library_.GetTexture("player"), size_, player_, new Orbiter(player_->GetPosition(), tex_library_.GetTexture("orb"), size_, 2, 1.5, player_->GetPosition())));
         game_objects_.push_back(player_);

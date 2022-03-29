@@ -2,6 +2,7 @@
 
 namespace game
 {
+	const float PlayerEntity::drag_coeff_ = 0.3f;
 	PlayerEntity::PlayerEntity(const glm::vec3 &position, GLuint texture, GLint num_elements, CircleCollider *collider, EffectObject *collision_effect, float speed, int shield, Bullet *bullet, float cooldown, const std::vector<GameObject *> &children, bool hidden)
 		: Entity(position, texture, num_elements, collider, collision_effect, speed, shield, hidden), ParentEntity(children), Shooter(bullet, cooldown)
 	{
@@ -22,6 +23,14 @@ namespace game
 		}
 
 		velocity_ = 0.5f * (acceleration_ * delta_time);
+		glm::vec3 drag = -drag_coeff_ * glm::normalize(velocity_);
+
+		if(glm::length(velocity_) < 0.01f) {
+			velocity_ = glm::vec3(0);
+		} else if(glm::length(velocity_) > glm::length(drag)) {
+			velocity_ += drag;
+		}
+
 		position_ += velocity_;
 
 		ParentEntity::UpdateChildren(delta_time);

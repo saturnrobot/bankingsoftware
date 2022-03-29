@@ -32,6 +32,7 @@ namespace game
     inline virtual CircleCollider *GetCollider() override { return static_cast<CircleCollider *>(collider_); }
 
   private:
+    static const float drag_coeff_;
     float force_amount_ = 10;
     float rot_speed_ = 5;
     glm::vec3 acceleration_;
