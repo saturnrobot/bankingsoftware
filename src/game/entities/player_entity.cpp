@@ -15,19 +15,23 @@ namespace game
 		if (paused_)
 			return;
 
-		//GameObject::Update(delta_time);
+		// GameObject::Update(delta_time);
 		glm::vec3 currentVelocity = GameObject::GetVelocity();
 
-		if(glm::length(currentVelocity) > max_velocity_) {
-			acceleration_ -= (glm::normalize(currentVelocity) * (glm::length(currentVelocity)*glm::length(currentVelocity)) * 5.0f);
+		if (glm::length(currentVelocity) > max_velocity_)
+		{
+			acceleration_ -= (glm::normalize(currentVelocity) * (glm::length(currentVelocity) * glm::length(currentVelocity)) * 5.0f);
 		}
 
 		velocity_ = 0.5f * (acceleration_ * delta_time);
 		glm::vec3 drag = -drag_coeff_ * glm::normalize(velocity_);
 
-		if(glm::length(velocity_) < 0.01f) {
+		if (glm::length(velocity_) < 0.01f)
+		{
 			velocity_ = glm::vec3(0);
-		} else if(glm::length(velocity_) > glm::length(drag)) {
+		}
+		else if (glm::length(velocity_) > glm::length(drag))
+		{
 			velocity_ += drag;
 		}
 
@@ -36,15 +40,15 @@ namespace game
 		ParentEntity::UpdateChildren(delta_time);
 		Shooter::UpdateShots(delta_time);
 	}
-	
+
 	void PlayerEntity::Render(Shader &shader)
 	{
 		Entity::Render(shader);
-		if(hidden_)
+		if (hidden_)
 			return;
 		ParentEntity::RenderChildren(shader, this);
 		Shooter::RenderShots(shader);
-    }
+	}
 
 	void PlayerEntity::RotateLeft()
 	{
@@ -58,28 +62,35 @@ namespace game
 
 	void PlayerEntity::MoveForward()
 	{
-		acceleration_ += glm::rotate(glm::vec3(0, speed_, 0), glm::radians(GameObject::GetRotation()), glm::vec3(0,0,1));
+		if (glm::length(velocity_) < max_velocity_)
+		{
+			acceleration_ += glm::rotate(glm::vec3(0, speed_, 0), glm::radians(GameObject::GetRotation()), glm::vec3(0, 0, 1));
+		}
 	}
 
 	void PlayerEntity::MoveBackward()
 	{
-		acceleration_ += glm::rotate(glm::vec3(0, -speed_, 0), glm::radians(GameObject::GetRotation()), glm::vec3(0,0,1));
+		if (glm::length(velocity_) < max_velocity_)
+		{
+			acceleration_ += glm::rotate(glm::vec3(0, -speed_, 0), glm::radians(GameObject::GetRotation()), glm::vec3(0, 0, 1));
+		}
 	}
-	
+
 	void PlayerEntity::LookAtPoint(glm::vec2 target)
 	{
 		float angle = glm::degrees(glm::atan(target.y - position_.y, target.x - position_.x));
-		if (angle < 0) {
+		if (angle < 0)
+		{
 			angle = 360 - (-angle);
 		}
 		GameObject::SetRotation(angle - 90);
 	}
-	
+
 	void PlayerEntity::Stop()
 	{
 		acceleration_ *= 0.99;
 	}
-	
+
 	void PlayerEntity::MarkForDeletion()
 	{
 		delete_ = true;

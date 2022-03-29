@@ -36,10 +36,9 @@ namespace game
     float force_amount_ = 10;
     float rot_speed_ = 5;
     glm::vec3 acceleration_;
-    float max_velocity_ = 0.0005;
-    float max_force_ = 100;
-    float min_force_ = -100;
+    float max_velocity_ = 0.1;
     void GetInput(double delta_time);
+    bool at_max_velocity_ = false;
 
   }; // class PlayerGameObject
 
